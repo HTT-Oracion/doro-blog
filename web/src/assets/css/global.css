@@ -1,0 +1,26 @@
+
+html,
+body,
+#app {
+ min-width: 1366px;
+ height: 100%;
+ margin: 0;
+ padding: 0;
+}
+a {
+  text-decoration: none;
+}
+.btns {
+  display: flex;
+  justify-content: flex-end;
+}
+.admin-card {
+  margin: 20px;
+  padding: 20px;
+}
+.ban-to-select {
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
