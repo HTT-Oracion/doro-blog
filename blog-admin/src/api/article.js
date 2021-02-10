@@ -23,7 +23,6 @@ export const addArticleRequest = async form => {
 export const getArticleById = async (id) => {
   const { data } = await axios.get(`/article/${id}`)
   if (data.status === 200) {
-    successTip(data.msg)
     return data.result
   }
 }

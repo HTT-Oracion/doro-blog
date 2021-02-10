@@ -110,20 +110,27 @@ module.exports = app => {
       const uid = authData.id
       const user = await User.findOne({ where: { id: uid } })
       if (!user) return res.send({ status: 422, msg: '用户不存在' })
-      console.log(req.body);
-      const { id,
+      const {
+        id,
         title,
         introduction,
         tags,
         cover,
         author,
         content } = req.body
+      console.log(id,
+        title,
+        introduction,
+        tags,
+        cover,
+        author,
+        content);
       const article = await Article.create({
         id,
         title,
         introduction,
         tags,
-        cover: cover.url,
+        cover,
         author,
         content,
         userId: uid

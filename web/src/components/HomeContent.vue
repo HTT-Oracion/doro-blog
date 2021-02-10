@@ -17,7 +17,7 @@
 
 <script>
 import { onMounted, reactive, toRefs } from 'vue'
-import { getArticleList } from '@/api/article'
+import { getArticleById } from '@/api/article'
 import MyCard from './MyCard'
 export default {
   name: 'HomeContent',
@@ -30,7 +30,8 @@ export default {
       home: true
     })
     onMounted(async () => {
-      state.article = await getArticleList()
+      state.article = await getArticleById("1111")
+      console.log(state.article);
     })
     return {
       ...toRefs(state)

@@ -1,7 +1,7 @@
 <template>
   <div class="login-page">
     <div class="login-box">
-      <h1 class="title">用户登录</h1>
+      <h1 class="title">管理员登录</h1>
       <el-form
         class="login-form"
         label-width="60px"
@@ -58,8 +58,7 @@ export default {
     confirmLogin (ref) {
       this.$refs[ref].validate(async valid => {
         if (!valid) return errorTip('请填写完整!')
-        const token = await lgReq(this.loginForm)
-        router.push('/home')
+        const token = await lgReq(this.loginForm,this.$router)
         store.commit('setAdmin', token)
         console.log(store.state.admin);
       })
@@ -74,7 +73,8 @@ export default {
 <style lang="less">
 .login-page {
   height: 100%;
-  background: #333;
+  background: url('../assets/img/login.jpg');
+  background-size: cover;
   .login-box {
     position: absolute;
     top: 50%;

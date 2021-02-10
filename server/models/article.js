@@ -46,6 +46,9 @@ module.exports = (sequelize, DataTypes) => {
     author: {
       type: DataTypes.STRING,
       defaultValue: 'Doro'
+    },
+    date: {
+      type: DataTypes.STRING
     }
   })
 }

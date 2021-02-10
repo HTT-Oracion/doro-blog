@@ -46,7 +46,7 @@ import MarkdownItTocDoneRight from 'markdown-it-toc-done-right'
 import { addCommentByArticle, getCommentsByArticle } from '@/api/comment'
 import { onMounted, reactive, toRefs, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { getArticleList } from '@/api/article'
+import { getArticleById } from '@/api/article'
 export default {
   name: 'Article',
   components: {
@@ -88,7 +88,7 @@ export default {
       state.total = state.commentList.length
     }
     const getArticleDetail = async () => {
-      state.articleData = await getArticleList(route.params.id)
+      state.articleData = await getArticleById(route.params.id)
       await getComments()
       console.log(state.articleData);
     }

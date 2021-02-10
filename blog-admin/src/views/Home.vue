@@ -18,13 +18,13 @@
             active-text-color="#8dc5e3"
             router
           >
-            <el-menu-item index="/home" @click="changeIndex('/home')">
+            <el-menu-item index="/home">
               <template slot="title">
                 <i class="el-icon-s-home"></i>
                 后台首页
               </template></el-menu-item
             >
-            <el-menu-item index="/users" @click="changeIndex('/users')">
+            <el-menu-item index="/users">
               <template slot="title">
                 <i class="el-icon-s-custom"></i>
                 用户管理
@@ -43,7 +43,6 @@
                 v-for="subitem in item.children"
                 :key="subitem.id"
                 :index="subitem.index"
-                @click="changeIndex(subitem.index)"
               >
                 <template #title>
                   <i :class="subitem.icon"></i>
@@ -96,10 +95,20 @@ export default {
       ]
     }
   },
+  watch: {
+    $route () {
+      this.setIndex()
+    }
+  },
   methods: {
     changeIndex (index) {
-      store.commit('setActiveIndex', index)
-      this.activeIndex = index
+      // console.log('route', this.$route.path);
+      // console.log(index);
+      // store.commit('setActiveIndex', index)
+      // this.activeIndex = index
+    },
+    setIndex () {
+      this.activeIndex = this.$route.path
     },
     logout () {
       clearStorage()
@@ -107,7 +116,7 @@ export default {
     }
   },
   created () {
-    this.activeIndex = store.state.activeIndex
+    this.setIndex()
   }
 }
 </script>

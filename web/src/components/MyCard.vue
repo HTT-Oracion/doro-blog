@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-cloak>
     <el-card class="article-card" :body-style="{ padding: '0px' }">
       <div class="card-container">
         <div class="card-header">
@@ -9,7 +9,7 @@
         </div>
         <div class="card-info">
           <i class="el-icon-date"></i>
-          <span>{{ date }}</span>
+          <span>{{ format(date) }}</span>
           <i class="el-icon-s-comment">{{ comment_count }}</i>
         </div>
         <router-link tag="div" class="card-cover" :to="linkto">
@@ -51,30 +51,42 @@
 </template>
 
 <script>
+import { formatDate } from '@/utils/viewTools'
 export default {
   name: 'MyCard',
   props: {
-    title: { type: String, default: '标题' },
+    title: { type: String, default: '' },
     date: { type: [String, Number], default: Date.now() },
     comment_count: { type: Number, default: 8 },
     tags: {
       type: Array,
       default () {
-        return ['vue', 'react', 'angular', 'node']
+        return []
       }
     },
     cover:
     {
       type: String,
-      default: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+      default: ''
     },
     introduction: { type: String, default: '这是描述信息' },
     linkto: { type: String, default: '/homecontent' }
+  },
+  setup () {
+    const format = (dateTime) => {
+      return formatDate(dateTime)
+    }
+    return {
+      format
+    }
   }
 }
 </script>
 
 <style lang="less">
+[v-cloak] {
+  display: none;
+}
 .article-card {
   // background-color: pink;
   width: 100%;

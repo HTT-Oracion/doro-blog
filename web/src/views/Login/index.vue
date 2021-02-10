@@ -93,7 +93,8 @@ export default {
 <style lang="less" scoped>
 .login-page {
   height: 100%;
-  background: #333;
+  background: url('../../assets/img/login.jpg');
+  background-size: cover;
   .login-box {
     position: absolute;
     top: 50%;

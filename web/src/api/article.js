@@ -20,7 +20,7 @@ export const getSearchRequest = async params => {
 }
 
 /* 文章详情  id="11" 文章为测试文章 */
-export const getArticleList = async (id = "11") => {
+export const getArticleById = async id => {
   const data = await axios.get(`/article/${id}`)
   console.log(data);
   if (data.status === 200)

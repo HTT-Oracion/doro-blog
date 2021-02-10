@@ -49,6 +49,16 @@
             >
           </template>
         </el-table-column>
+        <el-table-column label="图片">
+          <template #default="scope">
+            <el-image
+              style="width: 80px; height: 80px"
+              :src="scope.row.cover"
+              fit="cover"
+            ></el-image>
+            <!-- <img :src="scope.row.cover" alt="" /> -->
+          </template>
+        </el-table-column>
         <el-table-column prop="author" label="作者"></el-table-column>
         <el-table-column label="操作" width="200">
           <template #default="scope">
@@ -126,6 +136,7 @@ export default {
   },
   methods: {
     reset (ref) {
+      this.editFormVisible = false
       this.$refs[ref].resetFields()
     },
     async confirmEdit (ref) {

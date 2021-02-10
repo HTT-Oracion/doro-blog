@@ -19,10 +19,10 @@
       <el-form-item label="图片:" prop="cover">
         <el-upload
           :action="action"
+          :http-request="upload"
           :on-preview="handlePreview"
           :on-remove="handleRemove"
           :on-success="handleSuccess"
-          :file-list="articleForm.cover"
           list-type="picture"
           :headers="headers"
           show-file-list
@@ -42,7 +42,7 @@
       </el-form-item>
       <el-form-item class="btns">
         <el-button @click="reset('articleForm')">重置</el-button>
-        <el-button type="primary" @click="confirmAddArticle('articleForm')"
+        <el-button type="primary" @click="confirmAdd('articleForm')"
           >添加文章</el-button
         >
       </el-form-item>
@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import { errorTip } from '@/utils/viewTools'
 import { articleFormRules } from '@/utils/validateRules'
 import { addArticleRequest } from '@/api/article'
@@ -71,15 +72,16 @@ export default {
         title: '',
         introduction: '',
         tags: '',
-        cover: [],
+        cover: '',
         author: '',
         content: ''
       },
       articleFormRules: articleFormRules,
       headers: {},
-      action: process.env.VUE_APP_URL + '/add/article',
+      action: 'http://localhost:3333/upload',
       dialogVisible: false,
-      previewSrc: ''
+      previewSrc: '',
+      isPicUpload: false
     }
   },
   methods: {
@@ -89,10 +91,12 @@ export default {
     },
     handlePreview (file) {
       this.dialogVisible = true
-      this.previewSrc = file.url
+      if (!this.isPicUpload) {
+        return this.upload()
+      }
     },
     handleRemove () {
-      this.articleForm.cover.splice(1)
+      this.articleForm.cover = ''
       this.previewSrc = ''
     },
     handleSuccess (response, file, fileList) {
@@ -101,16 +105,28 @@ export default {
     reset (formName) {
       this.$refs[formName].resetFields();
     },
+
+    // 上传图片
+    async upload () {
+      let file = this.$refs.upload.uploadFiles[0]
+      let formdata = new FormData()
+      formdata.append('file', file.raw)
+      const { data } = await axios.post(this.action, formdata)
+      this.previewSrc = data.url
+      this.articleForm.cover = data.url
+      this.isPicUpload = true
+    },
     // 添加文章
-    confirmAddArticle (ref) {
+    confirmAdd (ref) {
       this.$refs[ref].validate(async valid => {
         if (!valid) return errorTip('请填写完整')
-        this.articleForm.cover = this.$refs['upload'].uploadFiles
+        if (!this.isPicUpload) {
+          await this.upload()
+        }
         await addArticleRequest(this.articleForm)
-        this.reset('articleForm')
-        this.reset('upload')
+        this.$refs.articleForm.resetFields()
+        router.push('/articles')
       })
-      router.push('/articles')
     }
   }
 }

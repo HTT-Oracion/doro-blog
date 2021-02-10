@@ -57,6 +57,12 @@
           <el-button type="info" @click="resetForm">重置</el-button>
           <el-button type="primary" @click="confirmRegister">注册</el-button>
         </el-form-item>
+        <el-button
+          icon="el-icon-arrow-left"
+          class="back"
+          size="mini"
+          @click="$router.back()"
+        ></el-button>
       </el-form>
     </div>
   </div>
@@ -107,7 +113,8 @@ export default {
 <style lang="less" scoped>
 .register-page {
   height: 100%;
-  background: gray;
+  background: url('../../assets/img/login.jpg');
+  background-size: cover;
   .register-box {
     position: absolute;
     top: 50%;
@@ -117,6 +124,11 @@ export default {
     height: 500px;
     background: #fff;
     box-sizing: border-box;
+    .back {
+      position: absolute;
+      top: 20px;
+      left: 5px;
+    }
     h1 {
       margin-top: 35px;
       text-align: center;
