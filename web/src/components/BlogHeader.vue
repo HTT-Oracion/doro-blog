@@ -28,8 +28,8 @@
       <template #title>工具站</template>
     </el-menu-item>
     <el-menu-item>
-      <i class="el-icon-s-open"></i>
-      <template #title>背景切换</template>
+      <i class="el-icon-video-play"></i>
+      <template #title> <a href="http://www.bilibili.tv">bilibili</a></template>
     </el-menu-item>
     <el-menu-item class="login-btn" @click="logout">
       <i class="el-icon-s-fold"></i>
@@ -86,6 +86,9 @@ export default {
     i {
       margin-top: -2px;
     }
+  }
+  .el-submenu__title {
+    font-size: 16px;
   }
   .blog-logo {
     text-align: center;

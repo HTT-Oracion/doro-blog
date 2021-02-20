@@ -68,6 +68,7 @@ export default {
     }
     const addComment = async () => {
       await addMessageRequest(state.messageForm)
+      state.messageForm.content = ''
       getMessageList()
     }
     const getMessageList = async () => {

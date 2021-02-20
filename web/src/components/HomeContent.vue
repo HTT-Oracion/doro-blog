@@ -30,7 +30,7 @@ export default {
       home: true
     })
     onMounted(async () => {
-      state.article = await getArticleById("1111")
+      state.article = await getArticleById("_HOhXI3cVKpsZwsUylE4U")
       console.log(state.article);
     })
     return {
